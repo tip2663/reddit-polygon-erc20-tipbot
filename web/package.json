@@ -1,0 +1,22 @@
+{
+  "name": "web",
+  "private": true,
+  "scripts": {
+    "build": "gridsome build",
+    "develop": "gridsome develop",
+    "explore": "gridsome explore",
+    "deploy": "surge"
+  },
+  "dependencies": {
+    "gridsome": "^0.7.0",
+    "gridsome-source-mysql": "^1.5.4",
+    "moment": "^2.30.1",
+    "mysql2": "^3.11.3",
+    "roboto-fontface": "^0.10.0",
+    "surge": "^0.24.6"
+  },
+  "devDependencies": {
+    "sass": "^1.79.3",
+    "sass-loader": "^10.5.2"
+  }
+}

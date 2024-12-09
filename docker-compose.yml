@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  bot:
+    build: .
+    restart: unless-stopped
+    environment:
+      - PYTHONUNBUFFERED=1
+      - MYSQL_HOST=db
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE=hodlbot
+      - MYSQL_USER=mysql
+      - MYSQL_PASSWORD=mysql
+    env_file: .env
+    depends_on:
+      db:
+        condition: service_healthy
+  
+  web:
+    build:
+      context: web
+      dockerfile: deploy.Dockerfile
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=hodlbot
+      - DB_USER=mysql
+      - DB_PASS=mysql
+    env_file: .env
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mariadb:10.5
+    restart: unless-stopped
+    environment:
+      - MYSQL_DATABASE=hodlbot
+      - MYSQL_USER=mysql
+      - MYSQL_PASSWORD=mysql
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./dbdata:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "/usr/local/bin/healthcheck.sh", "--su-mysql", "--connect"]
+      interval: 10s
+      timeout: 5s
+      retries: 5 
