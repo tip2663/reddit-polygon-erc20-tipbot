@@ -119,7 +119,7 @@ In the folder src/migrations you will find all database migrations we've done so
 In these, you will find that currencies and subreddits are registered directly through the database.
 Expert knowledge of SQL is currently required to register new subs and tokens.
 
-The migration files are executed in lexical order upon container start. Them being executed is logged in the `migrations` table which the program ensures is present, such that they are not ran twice.
+The migration files are executed in lexical order upon container start. Them being executed is logged in the `migrations` table which the program ensures is present, such that they are not run twice.
 
 ## Web frontend
 
